@@ -25,13 +25,13 @@ class ProductListAPIView(APIView):
         
         
 class ProductDetailAPIView(APIView):
-    def get(self,request,product_pk):
+    def get(self,request,product_pk):                                      #---------------------상품 상세 조회-----------------------------#
         product = get_object_or_404(Product,pk=product_pk)
         serializer = ProductsSerializer(product)
         return Response(serializer.data)
     
     
-    def put(self,request,product_pk):
+    def put(self,request,product_pk):                                      #---------------------상품 수정-----------------------------#
         product = get_object_or_404(Product,pk=product_pk)
         serializer = ProductsSerializer(product, data=request.data,partial = True)
         if serializer.is_valid(raise_exception=True):
@@ -39,7 +39,7 @@ class ProductDetailAPIView(APIView):
                 return Response(serializer.data)
     
     
-    def delete(self,request,product_pk):
+    def delete(self,request,product_pk):                                   #---------------------상품 삭제-----------------------------#
         product = get_object_or_404(Product,pk=product_pk)
         product.delete()
         return Response(status=status.HTTP_200_OK)
