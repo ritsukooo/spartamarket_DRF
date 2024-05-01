@@ -61,8 +61,11 @@ class UserprofileAPIView(APIView):
     # permission_classes = [IsAuthenticated]
         
     def get(self, request, username):
-        user = get_object_or_404(User, username=username)
+        
+        user = get_object_or_404(User, username=username) 
         serializer = UserSerializer(user)
+        # user = request.user
+        # serializer = UserSerializer(user)
         return Response(serializer.data)
         
 # - **조건**: 로그인 상태 필요.
