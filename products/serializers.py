@@ -3,7 +3,9 @@ from rest_framework import serializers
 
 
 class ProductsSerializer(serializers.ModelSerializer):
-  
-      class Meta:
+    class Meta:
         model = Product
-        fields = "__all__"
+        fields = ['id', 'title', 'price', 'content', 'created_at', 'updated_at', 'image', 'author']
+        extra_kwargs = {
+            'author': {'required': False}
+        }

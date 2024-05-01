@@ -13,12 +13,12 @@ from django.contrib.auth.forms import (
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth import get_user_model
 from .serializers import TokenSerializer
-from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth.hashers import check_password
 from django.contrib.auth import authenticate
 
 
-# 회원가입--------------------------------------------------------------------------------
+# -------------------------------------------------------------------------회원가입-------------------------
 
 
 class UsersignupAPIView(APIView):
@@ -32,7 +32,7 @@ class UsersignupAPIView(APIView):
             return Response(form.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-# #로그인--------------------------------------------------------------------------------
+# ----------------------------------------------------------------------------로그인--------------------------
 class UserloginAPIView(APIView):
     def post(self, request):
 
@@ -49,9 +49,8 @@ class UserloginAPIView(APIView):
 
         return Response(serializer.data)
 
-    #   구현: 성공적인 로그인 시 토큰을 발급하고, 실패 시 적절한 에러 메시지를 반환.
 
-    # 프로필 조회 및 회원탈퇴-------------------------------------------------------------
+    # ------------------------------------------------------------------------프로필 조회 -----------
 
 
 class UserprofileAPIView(APIView):
@@ -69,7 +68,7 @@ class UserprofileAPIView(APIView):
 # - **구현**: 로그인한 사용자의 정보를 JSON 형태로 반환.
 
 
-# 회원탈퇴--------------------------------------------------------------------------------
+# -------------------------------------------------------------------------------회원탈퇴---------------
 
 class UserwithdrawAPIView(APIView):
 
@@ -90,7 +89,7 @@ class UserwithdrawAPIView(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-# 로그아웃--------------------------------------------------------------------------------
+# --------------------------------------------------------------------------------로그아웃---------
 
 class UserlogoutAPIView(APIView):
     
@@ -102,6 +101,4 @@ class UserlogoutAPIView(APIView):
         token = RefreshToken(token_string)
         token.blacklist()
         return Response(status=status.HTTP_200_OK)       
-        
-        # 구현: 토큰 무효화 또는 다른 방법으로 로그아웃 처리 가능.
-        
+           
