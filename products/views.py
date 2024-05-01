@@ -17,6 +17,9 @@ class ProductListAPIView(APIView):
     
 
     def post(self,request):                                               #---------------------상품 등록-----------------------------#
+        
+        # permission_classes = [IsAuthenticated]
+        
         serializer = ProductsSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
@@ -32,6 +35,9 @@ class ProductDetailAPIView(APIView):
     
     
     def put(self,request,product_pk):                                      #---------------------상품 수정-----------------------------#
+        
+        # permission_classes = [IsAuthenticated] Product.author == request.user
+        
         product = get_object_or_404(Product,pk=product_pk)
         serializer = ProductsSerializer(product, data=request.data,partial = True)
         if serializer.is_valid(raise_exception=True):
@@ -40,6 +46,9 @@ class ProductDetailAPIView(APIView):
     
     
     def delete(self,request,product_pk):                                   #---------------------상품 삭제-----------------------------#
+        
+        # permission_classes = [IsAuthenticated] Product.author == request.user
+        
         product = get_object_or_404(Product,pk=product_pk)
         product.delete()
         return Response(status=status.HTTP_200_OK)
